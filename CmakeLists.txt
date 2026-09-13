@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.10)
+project(cacheDB)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Add the include directory so the compiler can find headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Build the test executable
+add_executable(lru_test tests/LRU_Test.cpp)
