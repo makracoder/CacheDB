@@ -5,6 +5,7 @@
 #include<list>
 #include<iostream>
 #include<optional>
+#include<mutex>
 using namespace std;
 
 template<typename Key, typename Value>
@@ -13,10 +14,12 @@ class LRUCache{
     size_t  capacity;
     list<pair<Key, Value>>lst;
     unordered_map<Key,  typename list<pair<Key, Value>>::iterator>mp;
+    mutex mutex_;
 
     public:
     explicit LRUCache(size_t capacity):capacity(capacity){};
     optional<Value> get(const Key& key){
+        lock_guard<mutex>lock(mutex_);
         auto it = mp.find(key);
         if(it == mp.end()){
             return nullopt;
@@ -28,6 +31,7 @@ class LRUCache{
         return val;
     }
     void put(const Key& key, const Value& val){
+        lock_guard<mutex>lock(mutex_);
         auto it = mp.find(key);
         if(it != mp.end()){
             lst.erase(it->second);
@@ -45,6 +49,7 @@ class LRUCache{
         }
     }
     size_t size(){
+        lock_guard<mutex>lock(mutex_);
         return mp.size();
     }
     void debugPrint(){
