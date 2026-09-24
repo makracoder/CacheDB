@@ -1,6 +1,7 @@
 // LRU - Least Recently used.
 // Front of the List stores most recent
 // Back of List stores least recent
+#pragma once
 #include<unordered_map>
 #include<list>
 #include<iostream>
